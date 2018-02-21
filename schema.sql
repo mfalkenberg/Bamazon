@@ -32,7 +32,11 @@ VALUES (20, "Pink Underwear", "Bottom", 10.50, 70);
 INSERT INTO products (item_id, product_name, department_name, price, stock_quantity)
 VALUES (30, "White Pants", "Bottom", 75.50, 90);
 
--- SELECT * FROM products;
+SELECT * FROM products;
 -- SELECT item_id, product_name
 -- FROM products
--- WHERE item_id > 15;
+-- WHERE item_id = 15;
+
+UPDATE products SET stock_quantity = 100 WHERE item_id = 30;
+
+SELECT * FROM products;
