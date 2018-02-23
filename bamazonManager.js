@@ -30,7 +30,6 @@ function runSearch() {
         "Add New Product"
       ]
     })
-
     .then(function(answer) {
       switch (answer.action) {
         case "View Products for Sale":
@@ -58,22 +57,26 @@ function viewProducts() {
       return;
     }
     console.log(res);
+    connection.end();
   });
 }
 
 function lowInvent() {
-  connection.query("SELECT item_id FROM products WHERE stock_quantity < 5", function(err, res) {
+  connection.query("SELECT item_id FROM products WHERE stock_quantity < 80", function(err, res) {
     console.log(res);
+    connection.end();
   });
 }
 
 function addInvent(){
-  // select quantity from ...
-  var currentQuantity;
-  // query(,function(error,res){
-    // currentQuantity = res[0].stock_quantity;
+  // var currentQuantity = "SELECT stock_quantity FROM products WHERE ?"
+  // connection.query(currentQuantity, {stock_quantity: answer.stock_quantity}, function(err, res){
+  //   var Quantity = res[0].stock_quantity;
+  // })
+  // // query(,function(error,res){
+  //   // currentQuantity = res[0].stock_quantity;
 
-  //})
+  // //})
   inquirer.prompt([
     {
       name: "item_id",
@@ -86,8 +89,13 @@ function addInvent(){
       message: "Please select how many units you want to add!" 
     }])
     .then(function(answer) {
+      var currentQuantity = "SELECT stock_quantity FROM products WHERE ?"
+      connection.query(currentQuantity, {item_id: answer.item_id}, function(err, res){
+      console.log(res[0].stock_quantity);
+    });
+
       var query = "UPDATE products SET ? WHERE ?";
-      //var newQuantity = currentQuantity + answer.stock_quantity;
+      var newQuantity = res[0].stock_quantity + answer.stock_quantity;
       connection.query(query, [
         {
           stock_quantity: newQuantity
