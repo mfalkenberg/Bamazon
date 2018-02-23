@@ -11,5 +11,6 @@ The Bamazon Customer Portal allows users to view the current items available for
 **Technologies Used:**
 
 * JavaScript
-*  
+* node.js
+* MySQL 
 
