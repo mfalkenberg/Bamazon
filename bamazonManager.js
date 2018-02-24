@@ -69,14 +69,6 @@ function lowInvent() {
 }
 
 function addInvent(){
-  // var currentQuantity = "SELECT stock_quantity FROM products WHERE ?"
-  // connection.query(currentQuantity, {stock_quantity: answer.stock_quantity}, function(err, res){
-  //   var Quantity = res[0].stock_quantity;
-  // })
-  // // query(,function(error,res){
-  //   // currentQuantity = res[0].stock_quantity;
-
-  // //})
   inquirer.prompt([
     {
       name: "item_id",
@@ -91,22 +83,19 @@ function addInvent(){
     .then(function(answer) {
       var currentQuantity = "SELECT stock_quantity FROM products WHERE ?"
       connection.query(currentQuantity, {item_id: answer.item_id}, function(err, res){
-      console.log(res[0].stock_quantity);
-    });
+        console.log(res[0].stock_quantity);
 
-      var query = "UPDATE products SET ? WHERE ?";
-      var newQuantity = res[0].stock_quantity + answer.stock_quantity;
-      connection.query(query, [
-        {
-          stock_quantity: newQuantity
-        },
-        {
-          item_id: answer.item_id
-        }, function(err, res) {
-          // 
-          console.log("done");
-        }
-      ]);
+        var query = "UPDATE products SET ? WHERE ?";
+        var newQuantity = res[0].stock_quantity + answer.stock_quantity;
+        connection.query(query, [
+          {
+            stock_quantity: newQuantity
+          },
+          {
+            item_id: answer.item_id
+          }]);
+          viewProducts();
+      });
     });
 }
 
